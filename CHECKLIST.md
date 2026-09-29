@@ -12,7 +12,7 @@ This project meets the common requirements as follows.
 | README: prerequisites, run/test, usage, design, limits | Root `README.md` |
 | Sample dataset | `backend/src/data/sample-tickets.json` + `npm run seed` |
 | AI disclosure | README **AI disclosure** |
-| Source + commit SHA | https://github.com/GraceTheDev/support-ticket-tracker @ `ac6c459328d447eada14c5a4bee5c8d438a2fcc5` |
+| Source + commit SHA | https://github.com/GraceTheDev/support-ticket-tracker @ `afc974724b839c45d4aecb5a07485017a458c0a2` |
 | No secrets in source | `.env` gitignored; Atlas URI only on Render |
 
 ## Before you submit
