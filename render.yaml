@@ -1,0 +1,15 @@
+# Example Render blueprint — create a free MongoDB Atlas cluster and paste the URI.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: support-ticket-tracker
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: MONGODB_URI
+        sync: false

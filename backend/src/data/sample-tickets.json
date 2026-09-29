@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Cannot reset password",
+    "description": "Demo user cannot reset password via the email link.",
+    "priority": "high",
+    "status": "Open"
+  },
+  {
+    "title": "Billing portal timeout",
+    "description": "Billing page hangs after clicking View invoice.",
+    "priority": "medium",
+    "status": "Open"
+  },
+  {
+    "title": "Update company address",
+    "description": "Account profile still shows the old office address.",
+    "priority": "low",
+    "status": "In progress"
+  }
+]
