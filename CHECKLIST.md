@@ -1,26 +1,24 @@
-# Challenge checklist
+# Assessors — submission map
 
-## Required functionality
+This project meets the common requirements as follows.
 
-| Requirement | Status | Evidence |
-|-------------|--------|----------|
-| Create ticket (title, description, priority, unique ID) | Done | `POST /api/tickets`, UI form; numeric IDs from 1 |
-| List + search by title; filter status/priority | Done | `GET /api/tickets?search&status&priority`, UI filters |
-| Move Open → In progress → Resolved; timestamps | Done | `PATCH /api/tickets/:id/status` + comment |
-| Agent can change priority | Done | `PATCH /api/tickets/:id/priority` + comment |
-| Reject empty titles, invalid priorities/statuses | Done | API `400` + UI validation; tests |
-| Total tickets + counts by status | Done | `GET /api/tickets/summary`, UI summary |
-| Persist across restarts | Done | MongoDB / Atlas |
-| Acceptance scenario | Done | `tickets.api.test.ts` + README |
-| Sample dataset | Done | `npm run seed` |
-| Automated tests | Done | `cd backend && npm test` |
-| README (setup, usage, design, limits, AI) | Done | Root `README.md` |
-| Public HTTPS deployed app | **Do Parts 1–5 in README** | Atlas + GitHub + Render |
+| Requirement | Where to find it |
+|-------------|------------------|
+| Deployed HTTPS app (not repo-only) | README **For assessors** → Public URL (Render) |
+| Access instructions / no login | README: **No login required** |
+| Testable API endpoint | `{URL}/health`, `{URL}/api/tickets/summary` |
+| Persist across restarts | MongoDB Atlas |
+| Automated tests | `cd backend && npm test` (18 tests) |
+| README: prerequisites, run/test, usage, design, limits | Root `README.md` |
+| Sample dataset | `backend/src/data/sample-tickets.json` + `npm run seed` |
+| AI disclosure | README **AI disclosure** |
+| Source + commit SHA | https://github.com/GraceTheDev/support-ticket-tracker @ `6f083b33bc679a78f9ec0cb4fae7d0e9ba3eb4e7` |
+| No secrets in source | `.env` gitignored; Atlas URI only on Render |
 
-## Your remaining steps
+## Before you submit
 
-1. **Atlas** — free cluster + user + `0.0.0.0/0` + connection URI  
-2. **GitHub** — create empty repo → `git push -u origin main`  
-3. **Render** — Docker web service + `MONGODB_URI`  
-4. Paste live HTTPS URL into README + CHECKLIST  
-5. Submit ZIP or repo URL + full commit SHA  
+1. Confirm Render is **Live** and paste the URL into README (both tables).  
+2. Open the URL → Log a ticket / Support desk → create & resolve a ticket.  
+3. Hit `/health` and `/api/tickets/summary`.  
+4. Submit **repo URL + full 40-character SHA**, or a ZIP without `node_modules`/`dist`/`.env`.  
+5. Keep Render + Atlas running for marking.  
