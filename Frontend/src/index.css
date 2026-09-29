@@ -142,8 +142,73 @@ button {
   border-radius: 10px;
 }
 
-.brand__tagline {
-  display: none;
+.brand__role {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.landing__actions .landing__cta {
+  margin-top: 0;
+  min-width: 150px;
+}
+
+.landing__actions .btn--ghost {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(11, 31, 42, 0.15);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.pill--low {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.pill--medium {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.pill--high {
+  background: #ffedd5;
+  color: var(--signal);
+}
+
+.pill--status-open {
+  background: #e0f2fe;
+  color: var(--open);
+}
+
+.pill--status-progress {
+  background: #fef3c7;
+  color: var(--progress);
+}
+
+.pill--status-resolved {
+  background: #dcfce7;
+  color: var(--resolved);
 }
 
 .summary {
@@ -802,7 +867,6 @@ button {
 }
 
 .landing__cta {
-  margin-top: 0.75rem;
   min-width: 160px;
 }
 

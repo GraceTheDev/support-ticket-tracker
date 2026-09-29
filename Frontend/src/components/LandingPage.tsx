@@ -1,8 +1,10 @@
+export type AppView = 'home' | 'logger' | 'support'
+
 interface LandingPageProps {
-  onContinue: () => void
+  onChoose: (view: Exclude<AppView, 'home'>) => void
 }
 
-export function LandingPage({ onContinue }: LandingPageProps) {
+export function LandingPage({ onChoose }: LandingPageProps) {
   return (
     <div className="landing">
       <div className="landing__wallpaper" aria-hidden="true" />
@@ -14,9 +16,22 @@ export function LandingPage({ onContinue }: LandingPageProps) {
           <p className="landing__subtitle">
             Manage support requests from creation to resolution.
           </p>
-          <button className="btn btn--primary landing__cta" type="button" onClick={onContinue}>
-            Continue →
-          </button>
+          <div className="landing__actions">
+            <button
+              className="btn btn--primary landing__cta"
+              type="button"
+              onClick={() => onChoose('logger')}
+            >
+              Log a ticket
+            </button>
+            <button
+              className="btn btn--ghost landing__cta"
+              type="button"
+              onClick={() => onChoose('support')}
+            >
+              Support desk
+            </button>
+          </div>
         </div>
       </div>
     </div>

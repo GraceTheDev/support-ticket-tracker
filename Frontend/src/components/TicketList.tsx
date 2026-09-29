@@ -9,14 +9,16 @@ import {
 
 interface TicketListProps {
   tickets: Ticket[]
-  busyId: number | null
-  onRequestStatus: (ticket: Ticket, status: Status) => void
-  onRequestPriority: (ticket: Ticket, priority: Priority) => void
+  busyId?: number | null
+  readOnly?: boolean
+  onRequestStatus?: (ticket: Ticket, status: Status) => void
+  onRequestPriority?: (ticket: Ticket, priority: Priority) => void
 }
 
 export function TicketList({
   tickets,
-  busyId,
+  busyId = null,
+  readOnly = false,
   onRequestStatus,
   onRequestPriority,
 }: TicketListProps) {
@@ -79,46 +81,60 @@ export function TicketList({
                     </div>
                   </td>
                   <td className="col-priority">
-                    <div className="select-wrap select-wrap--table">
-                      <select
-                        value={ticket.priority}
-                        disabled={isBusy}
-                        aria-label={`Priority for ticket ${ticket.id}`}
-                        onChange={(e) => {
-                          const value = e.target.value as Priority
-                          if (value !== ticket.priority) {
-                            onRequestPriority(ticket, value)
-                          }
-                        }}
-                      >
-                        {PRIORITIES.map((p) => (
-                          <option key={p} value={p}>
-                            {capitalizePriority(p)}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    {readOnly ? (
+                      <span className={`pill pill--${ticket.priority}`}>
+                        {capitalizePriority(ticket.priority)}
+                      </span>
+                    ) : (
+                      <div className="select-wrap select-wrap--table">
+                        <select
+                          value={ticket.priority}
+                          disabled={isBusy}
+                          aria-label={`Priority for ticket ${ticket.id}`}
+                          onChange={(e) => {
+                            const value = e.target.value as Priority
+                            if (value !== ticket.priority) {
+                              onRequestPriority?.(ticket, value)
+                            }
+                          }}
+                        >
+                          {PRIORITIES.map((p) => (
+                            <option key={p} value={p}>
+                              {capitalizePriority(p)}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                   </td>
                   <td className="col-status">
-                    <div className="select-wrap select-wrap--table">
-                      <select
-                        value={ticket.status}
-                        disabled={isBusy}
-                        aria-label={`Status for ticket ${ticket.id}`}
-                        onChange={(e) => {
-                          const value = e.target.value as Status
-                          if (value !== ticket.status) {
-                            onRequestStatus(ticket, value)
-                          }
-                        }}
+                    {readOnly ? (
+                      <span
+                        className={`pill pill--status-${ticket.status === 'In progress' ? 'progress' : ticket.status.toLowerCase()}`}
                       >
-                        {STATUSES.map((status) => (
-                          <option key={status} value={status}>
-                            {status}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                        {ticket.status}
+                      </span>
+                    ) : (
+                      <div className="select-wrap select-wrap--table">
+                        <select
+                          value={ticket.status}
+                          disabled={isBusy}
+                          aria-label={`Status for ticket ${ticket.id}`}
+                          onChange={(e) => {
+                            const value = e.target.value as Status
+                            if (value !== ticket.status) {
+                              onRequestStatus?.(ticket, value)
+                            }
+                          }}
+                        >
+                          {STATUSES.map((status) => (
+                            <option key={status} value={status}>
+                              {status}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                   </td>
                   <td className="col-date ticket-table__date">
                     {formatDate(ticket.createdAt)}

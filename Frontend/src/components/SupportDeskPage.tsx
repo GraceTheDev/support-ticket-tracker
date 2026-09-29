@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import {
-  createTicket,
   fetchSummary,
   fetchTickets,
   updateTicketPriority,
@@ -9,10 +8,8 @@ import {
 import { ActionModal } from './ActionModal'
 import { SummaryBar } from './SummaryBar'
 import { TicketFiltersBar } from './TicketFiltersBar'
-import { TicketForm } from './TicketForm'
 import { TicketList } from './TicketList'
 import type {
-  CreateTicketInput,
   Priority,
   Status,
   Ticket,
@@ -31,16 +28,15 @@ type PendingAction =
   | { kind: 'status'; ticket: Ticket; status: Status }
   | { kind: 'priority'; ticket: Ticket; priority: Priority }
 
-interface DashboardProps {
+interface SupportDeskPageProps {
   onBack: () => void
 }
 
-export function Dashboard({ onBack }: DashboardProps) {
+export function SupportDeskPage({ onBack }: SupportDeskPageProps) {
   const [tickets, setTickets] = useState<Ticket[]>([])
   const [summary, setSummary] = useState<TicketSummary | null>(null)
   const [filters, setFilters] = useState<TicketFilters>(EMPTY_FILTERS)
   const [loading, setLoading] = useState(true)
-  const [creating, setCreating] = useState(false)
   const [busyId, setBusyId] = useState<number | null>(null)
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
@@ -79,23 +75,6 @@ export function Dashboard({ onBack }: DashboardProps) {
       window.clearTimeout(timer)
     }
   }, [filters, refresh])
-
-  const handleCreate = async (input: CreateTicketInput): Promise<boolean> => {
-    setCreating(true)
-    setError('')
-    setNotice('')
-    try {
-      const ticket = await createTicket(input)
-      setNotice(`Ticket #${ticket.id} created`)
-      await refresh(filters)
-      return true
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not create ticket')
-      return false
-    } finally {
-      setCreating(false)
-    }
-  }
 
   const submitPending = async (comment: string) => {
     if (!pending) return
@@ -147,7 +126,10 @@ export function Dashboard({ onBack }: DashboardProps) {
         <div className="brand__row">
           <div className="brand__mark">
             <img src="/logo.svg" alt="" width={36} height={36} className="brand__logo" />
-            <h1 className="brand__name">Support Ticket Tracker</h1>
+            <div>
+              <h1 className="brand__name">Support desk</h1>
+              <p className="brand__role">Agent</p>
+            </div>
           </div>
           <button className="btn btn--ghost btn--sm" type="button" onClick={onBack}>
             Home
@@ -167,8 +149,6 @@ export function Dashboard({ onBack }: DashboardProps) {
           {notice}
         </div>
       ) : null}
-
-      <TicketForm onCreate={handleCreate} busy={creating} />
 
       <section className="panel">
         <div className="panel__header">

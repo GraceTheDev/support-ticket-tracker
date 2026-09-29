@@ -1,15 +1,20 @@
 import { useState } from 'react'
-import { Dashboard } from './components/Dashboard'
-import { LandingPage } from './components/LandingPage'
+import { LandingPage, type AppView } from './components/LandingPage'
+import { LoggerPage } from './components/LoggerPage'
+import { SupportDeskPage } from './components/SupportDeskPage'
 
 function App() {
-  const [entered, setEntered] = useState(false)
+  const [view, setView] = useState<AppView>('home')
 
-  if (!entered) {
-    return <LandingPage onContinue={() => setEntered(true)} />
+  if (view === 'logger') {
+    return <LoggerPage onBack={() => setView('home')} />
   }
 
-  return <Dashboard onBack={() => setEntered(false)} />
+  if (view === 'support') {
+    return <SupportDeskPage onBack={() => setView('home')} />
+  }
+
+  return <LandingPage onChoose={setView} />
 }
 
 export default App
