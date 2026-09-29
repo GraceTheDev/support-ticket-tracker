@@ -6,11 +6,11 @@ Help a small support team track requests from arrival to resolution.
 
 | Item | Value |
 |------|--------|
-| **Deployed app (HTTPS)** | _Paste your Render URL here, e.g. `https://support-ticket-tracker-xxxx.onrender.com`_ |
+| **Deployed app (HTTPS)** | _Set after Render is Live — Dashboard → your service → copy the `.onrender.com` URL_ |
 | **Access** | **No login required.** No demo credentials. Open the URL and choose **Log a ticket** or **Support desk**. |
 | **Health / testable API** | `{DEPLOYED_URL}/health` and `{DEPLOYED_URL}/api/tickets/summary` |
 | **Source repository** | https://github.com/GraceTheDev/support-ticket-tracker |
-| **Commit SHA (40 chars)** | `6f083b33bc679a78f9ec0cb4fae7d0e9ba3eb4e7` |
+| **Commit SHA (40 chars)** | `ac6c459328d447eada14c5a4bee5c8d438a2fcc5` |
 
 Cold start on free Render may take 30–60 seconds on the first request.
 
@@ -216,7 +216,7 @@ cd ../backend && npm install && npm run build && npm start
 | Field | Value |
 |-------|--------|
 | Repository | https://github.com/GraceTheDev/support-ticket-tracker |
-| Full commit SHA | `6f083b33bc679a78f9ec0cb4fae7d0e9ba3eb4e7` |
+| Full commit SHA | `ac6c459328d447eada14c5a4bee5c8d438a2fcc5` |
 | ZIP alternative | Exclude `node_modules/`, `dist/`, `.env` (max 15 MB) |
 | Secrets | Do not include passwords, API keys, or `.env` |
 
