@@ -10,7 +10,7 @@ Help a small support team track requests from arrival to resolution.
 | **Access** | **No login required.** No demo credentials. Open the URL and choose **Log a ticket** or **Support desk**. |
 | **Health / testable API** | `{DEPLOYED_URL}/health` and `{DEPLOYED_URL}/api/tickets/summary` |
 | **Source repository** | https://github.com/GraceTheDev/support-ticket-tracker |
-| **Commit SHA (40 chars)** | `936283269e02c9f54bd51f158da9e5cd2911c855` |
+| **Commit SHA (40 chars)** | `a3077c137d392ed71eaf910bb0f69612caf66c99` |
 
 Cold start on free Render may take 30–60 seconds on the first request.
 
@@ -216,7 +216,7 @@ cd ../backend && npm install && npm run build && npm start
 | Field | Value |
 |-------|--------|
 | Repository | https://github.com/GraceTheDev/support-ticket-tracker |
-| Full commit SHA | `936283269e02c9f54bd51f158da9e5cd2911c855` |
+| Full commit SHA | `a3077c137d392ed71eaf910bb0f69612caf66c99` |
 | ZIP alternative | Exclude `node_modules/`, `dist/`, `.env` (max 15 MB) |
 | Secrets | Do not include passwords, API keys, or `.env` |
 
