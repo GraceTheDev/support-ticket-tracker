@@ -1,33 +1,31 @@
 # Support Ticket Tracker
 
-Help a small support team track requests from arrival to resolution.
-
 ## For assessors (quick access)
 
 | Item | Value |
 |------|--------|
-| **Deployed app (HTTPS)** | _Set after Render is Live — Dashboard → your service → copy the `.onrender.com` URL_ |
+| **Deployed app (HTTPS)** | https://support-ticket-tracker-ddx4.onrender.com/|
 | **Access** | **No login required.** No demo credentials. Open the URL and choose **Log a ticket** or **Support desk**. |
-| **Health / testable API** | `{DEPLOYED_URL}/health` and `{DEPLOYED_URL}/api/tickets/summary` |
+| **Swagger / API docs** | https://support-ticket-tracker-ddx4.onrender.com/api-docs |
 | **Source repository** | https://github.com/GraceTheDev/support-ticket-tracker |
 | **Commit SHA (40 chars)** | `c672b4f3317a7036361d4378d842b496b39df77d` |
 
 Cold start on free Render may take 30–60 seconds on the first request.
 
-**No login required.** Demo-only sample data. Do not use real customer information.
+**No login required.** Demo-only sample data. 
 
 ## Deployed app
 
 | Item | Value |
 |------|--------|
-| **Public HTTPS URL** | _Same as table above — update after Render is Live_ |
+| **Public HTTPS URL** | https://support-ticket-tracker-ddx4.onrender.com/|
 | **Access** | No login / no credentials |
-| **Health check** | `GET /health` |
 | **API example** | `GET /api/tickets/summary` |
+| **Swagger docs** | `/api-docs` (OpenAPI JSON: `/api-docs.json`) |
 
 ## Stack
 
-- **Frontend:** React + TypeScript (Vite) — requester page + support desk page
+- **Frontend:** React + TypeScript — requester page + support desk page
 - **Backend:** Node.js + Express (TypeScript)
 - **Database:** MongoDB Atlas (persists across restarts and redeploys)
 - **Containers:** Docker (root `Dockerfile` serves UI + API)
@@ -93,18 +91,13 @@ npm test
 
 ## Sample dataset
 
-File: `backend/src/data/sample-tickets.json` (demo-only; no real customer data).
+File: `backend/src/data/sample-tickets.json
 
 ```bash
 cd backend
 npm run seed
 ```
 
-Includes:
-
-- **Cannot reset password** · Priority: high · Status: Open  
-- **Billing portal timeout** · Priority: medium · Status: Open  
-- **Update company address** · Priority: low · Status: In progress  
 
 ## How to try the deployed app
 
@@ -121,37 +114,14 @@ curl -s https://YOUR-RENDER-URL.onrender.com/api/tickets/summary
 curl -s "https://YOUR-RENDER-URL.onrender.com/api/tickets?status=Open"
 ```
 
-## Acceptance scenario
-
-```bash
-# 1. Create two tickets with different priorities
-curl -s -X POST http://localhost:3000/api/tickets \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Cannot reset password","description":"Reset link fails","priority":"high"}'
-
-curl -s -X POST http://localhost:3000/api/tickets \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Billing portal timeout","description":"Page hangs on load","priority":"medium"}'
-
-# 2. Move the first ticket: Open → In progress → Resolved (replace TICKET_ID with numeric id, e.g. 1)
-curl -s -X PATCH http://localhost:3000/api/tickets/TICKET_ID/status \
-  -H "Content-Type: application/json" \
-  -d '{"status":"In progress","comment":"Investigating the issue."}'
-
-curl -s -X PATCH http://localhost:3000/api/tickets/TICKET_ID/status \
-  -H "Content-Type: application/json" \
-  -d '{"status":"Resolved","comment":"Issue fixed and confirmed with user."}'
-
-# 3. Filter remaining Open tickets
-curl -s "http://localhost:3000/api/tickets?status=Open"
-
-# 4. Restart and verify persistence
-docker compose restart app
-curl -s http://localhost:3000/api/tickets
-curl -s http://localhost:3000/api/tickets/summary
 ```
 
 ## API reference
+
+**Interactive docs (Swagger UI):** http://localhost:3000/api-docs  
+**OpenAPI JSON:** http://localhost:3000/api-docs.json  
+
+On the deployed app: `{DEPLOYED_URL}/api-docs` (e.g. https://support-ticket-tracker-ddx4.onrender.com/api-docs).
 
 Base path: `/api/tickets`
 
@@ -171,12 +141,12 @@ Statuses: `Open` | `In progress` | `Resolved` (default on create: `Open`)
 
 Empty titles, invalid priorities, and invalid statuses are rejected with HTTP `400` and helpful error messages.
 
+
 ## Design decisions
 
 - **MongoDB Atlas** for durable storage so tickets and summary counts survive restarts (not in-memory-only).
 - **Two UI entry points** without login: **Log a ticket** (requesters create + view) and **Support desk** (agents filter, update status/priority with comments).
 - **Express + Mongoose** keep the API thin: routes → controllers → model, with shared validation helpers.
-- **Numeric ticket IDs** starting at 1 for clearer support workflows.
 - **Single Docker image** builds the Vite frontend and serves it from Express so one HTTPS service hosts UI + API.
 - **Statuses** use the challenge wording exactly (`Open`, `In progress`, `Resolved`).
 
@@ -189,8 +159,7 @@ Empty titles, invalid priorities, and invalid statuses are rejected with HTTP `4
 - Secrets (`MONGODB_URI`) live only in Render env vars — never in the repo.
 
 ## Deployment
-
-Production is intended to run on **Render + MongoDB Atlas**.
+ **Render + MongoDB Atlas**.
 
 ### MongoDB Atlas
 
@@ -211,21 +180,12 @@ mkdir -p backend/public && cp -R Frontend/dist/* backend/public/
 cd ../backend && npm install && npm run build && npm start
 ```
 
-## Submission notes
-
-| Field | Value |
-|-------|--------|
-| Repository | https://github.com/GraceTheDev/support-ticket-tracker |
-| Full commit SHA | `c672b4f3317a7036361d4378d842b496b39df77d` |
-| ZIP alternative | Exclude `node_modules/`, `dist/`, `.env` (max 15 MB) |
-| Secrets | Do not include passwords, API keys, or `.env` |
-
-If you make more commits after this README update, run `git rev-parse HEAD` and replace the SHA above before submitting.
-
 ## AI disclosure
 
 **AI tools used:** Cursor (Composer agent).
 
-**Helped with:** scaffolding Express/React TypeScript structure, Docker/Render setup, validation and ticket API, React UI (landing, logger page, support desk), automated tests, sample seed data, and README/checklist alignment.
+**Helped with:** scaffolding Express/React TypeScript and making the coding faster, validation and ticket API, React UI (landing, logger page, support desk)
 
 **How output was checked:** ran `npm test` (18 passing), manual curl acceptance flow against MongoDB, frontend `npm run build`, health/summary checks, and review of validation rules against the brief (empty title, invalid priority/status, status transitions with comments, summary counts, persistence).
+
+API Documentation 

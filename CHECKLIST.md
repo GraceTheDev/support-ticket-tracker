@@ -6,7 +6,7 @@ This project meets the common requirements as follows.
 |-------------|------------------|
 | Deployed HTTPS app (not repo-only) | README **For assessors** → Public URL (Render) |
 | Access instructions / no login | README: **No login required** |
-| Testable API endpoint | `{URL}/health`, `{URL}/api/tickets/summary` |
+| Testable API endpoint | `{URL}/health`, `{URL}/api/tickets/summary`, Swagger `{URL}/api-docs` |
 | Persist across restarts | MongoDB Atlas |
 | Automated tests | `cd backend && npm test` (18 tests) |
 | README: prerequisites, run/test, usage, design, limits | Root `README.md` |
